@@ -20,7 +20,7 @@ local.properties
 *.jar
 *.war
 *.ear
-/.settings
-/.classpath
-/.project
-/target
+app/.settings
+app/.classpath
+app/.project
+app/target
