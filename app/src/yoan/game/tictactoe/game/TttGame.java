@@ -11,7 +11,6 @@ import yoan.game.Game;
 import yoan.game.engines.ModuleType;
 import yoan.game.tictactoe.game.engines.TttGameEngine;
 import yoan.game.tictactoe.game.engines.TttGraphicEngine;
-import yoan.game.tictactoe.game.engines.TttSoundEngine;
 import yoan.game.tictactoe.game.engines.events.TttEngineEvent;
 import yoan.game.util.errors.GameException;
 
@@ -20,8 +19,17 @@ import yoan.game.util.errors.GameException;
  *
  */
 public class TttGame extends Game<TttEngineEvent> {
+	
+	/**
+	 * Constructeur par défaut du jeu
+	 */
+	public TttGame(){
+		super();
+	}
+	
 	/**
 	 * Initialisation des différents modules utilisés
+	 * @param initArgs : arguments d'initialisation
 	 */
 	@Override
 	public void init(String... initArgs) throws GameException {
@@ -30,19 +38,21 @@ public class TttGame extends Game<TttEngineEvent> {
 		//listage des modules utilisés
 		modules.put(ModuleType.GAME, new TttGameEngine(this));
 		modules.put(ModuleType.GRAPHIC, new TttGraphicEngine(this));
-		modules.put(ModuleType.SOUND, new TttSoundEngine(this));
+//		modules.put(ModuleType.SOUND, new TttSoundEngine(this));
 		
 		Map<ModuleType, String[]> args= new HashMap<ModuleType, String[]>();
 		
 		//le premier arg est celui du GameEngine
-		args.put(ModuleType.GAME, Arrays.copyOfRange(initArgs, 0, 2));
+		args.put(ModuleType.GAME, Arrays.copyOfRange(initArgs, 0, 1));
 		initEngines(args);
 	}
 
+	/**
+	 * Arrête l'application
+	 */
 	@Override
 	public void stop() {
 		super.stop();
-		
 	}
 	
 	@Override

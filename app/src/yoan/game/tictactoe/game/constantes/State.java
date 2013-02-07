@@ -32,4 +32,14 @@ public enum State {
         }
         return EMPTY;
     }
+    
+    public static State fromString(String s) {
+    	State retour = EMPTY;
+    	if (ConstValues.JOUEUR_HUMAIN_1.equals(s)) {
+    		retour = State.PLAYER1;
+    	} else if (ConstValues.JOUEUR_HUMAIN_2.equals(s) || ConstValues.JOUEUR_ORDI.equals(s)) {
+    		retour = State.PLAYER2;
+    	}
+        return retour;
+    }
 }

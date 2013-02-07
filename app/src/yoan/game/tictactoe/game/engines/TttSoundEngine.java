@@ -6,7 +6,6 @@ package yoan.game.tictactoe.game.engines;
 import yoan.game.Game;
 import yoan.game.engines.SoundEngine;
 import yoan.game.tictactoe.game.engines.events.TttEngineEvent;
-import yoan.game.util.errors.GameErrors;
 import yoan.game.util.errors.GameException;
 import yoan.game.util.logs.Log;
 
@@ -28,9 +27,6 @@ public class TttSoundEngine extends SoundEngine<TttEngineEvent> {
 
 	protected void processEvent(TttEngineEvent event) throws GameException {
 		if (event != null) {
-			Log.debug(getType(), "emet le bruit : "+ event.getData());
-		} else {
-			GameErrors.throwError(getType(), "Problème");
 		}
 	}
 

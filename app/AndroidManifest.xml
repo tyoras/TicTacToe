@@ -11,15 +11,17 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
+        android:name="yoan.game.tictactoe.game.context.GlobalContext"
         android:allowBackup="true" >
         <activity
-            android:name="yoan.game.tictactoe.MainActivity"
+            android:name="yoan.game.tictactoe.activities.MainActivity"
             android:label="@string/title_activity_accueil" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="yoan.game.tictactoe.activities.GameActivity" />
     </application>
 
 </manifest>
