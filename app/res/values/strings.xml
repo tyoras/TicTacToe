@@ -20,5 +20,6 @@
     <string name="error"><b>Erreur non traitée :</b> %1$s</string>
     
     <string name="done">I\'m done</string>
+    <string name="quit">Quit</string>
 
 </resources>

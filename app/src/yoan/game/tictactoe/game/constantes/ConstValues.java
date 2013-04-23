@@ -17,6 +17,5 @@ public final class ConstValues {
 	/** Joueur humain 2 */
 	public static final String JOUEUR_HUMAIN_2 = "human2";
 	/** Joueur ordi */
-	public static final String JOUEUR_ORDI = "computer";
-	
+	public static final String JOUEUR_ORDI = "computer";	
 }

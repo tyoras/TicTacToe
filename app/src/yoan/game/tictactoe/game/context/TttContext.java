@@ -22,10 +22,6 @@ public class TttContext implements GameContext {
 	private int selectedCell = -1;
     private State selectedValue = State.EMPTY;
 
-//    private int mWinCol = -1;
-//    private int mWinRow = -1;
-//    private int mWinDiag = -1;
-	
 	/** Constructeur privé */
 	private TttContext(){ }
 	

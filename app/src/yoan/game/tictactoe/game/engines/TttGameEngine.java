@@ -25,14 +25,19 @@ import android.os.Handler.Callback;
 import android.os.Message;
 
 /**
+ * Moteur gérant la logique du jeu
  * @author yoan
  */
 public class TttGameEngine extends GameEngine<TttEngineEvent> {
+	/** Indique que c'est le tour de l'IA */
 	private static final int MSG_COMPUTER_TURN = 1;
+	/** Délai d'envoi du message */
 	private static final long COMPUTER_DELAY_MS = 500;
-		
-	private Handler mHandler = new Handler(Looper.getMainLooper(), new MyHandlerCallback());
-	private Random mRnd = new Random();
+	
+	/** Handler sur un thread gérant le tour de l'IA */
+	private Handler handlerIA = new Handler(Looper.getMainLooper(), new HandlerIACallback());
+	/** Random nécessaire à l'IA */
+	private Random rand = new Random();
 	    
 	//arguments 
 	private String firstPlayer = ConstValues.JOUEUR_HUMAIN_1;
@@ -147,7 +152,7 @@ public class TttGameEngine extends GameEngine<TttEngineEvent> {
         if (!checkGameFinished(player)) {
         	player = selectTurn(getOtherPlayer(player));
             if (player == State.PLAYER2) {
-                mHandler.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
+            	handlerIA.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
             }
         }
     }
@@ -233,7 +238,7 @@ public class TttGameEngine extends GameEngine<TttEngineEvent> {
         	idText = R.string.player2_win;
         }
         //envoi d'une requête au graphic engine
-      	game.getModules().get(ModuleType.GRAPHIC).pushEvent(new TttEngineEvent(GraphicEvents.WIN_STATE, idText));
+      	game.getModules().get(ModuleType.GRAPHIC).pushEvent(new TttEngineEvent(GraphicEvents.WIN, idText));
     }
     
     
@@ -273,7 +278,7 @@ public class TttGameEngine extends GameEngine<TttEngineEvent> {
             }
         }
         if (currentPlayer == State.PLAYER2) {
-            mHandler.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
+        	handlerIA.sendEmptyMessageDelayed(MSG_COMPUTER_TURN, COMPUTER_DELAY_MS);
         }
         if (currentPlayer == State.WIN) {
         	State winner = TttContext.getContext().getWinner();
@@ -317,29 +322,44 @@ public class TttGameEngine extends GameEngine<TttEngineEvent> {
 	}
 	
 	
-	private class MyHandlerCallback implements Callback {
-        public boolean handleMessage(Message msg) {
+	/**
+	 * Callback sur le handler du thread de l'IA
+	 * Permet de gérer des messages dans un thread à part
+	 */
+	private class HandlerIACallback implements Callback {
+        /**
+         * gestion d'un message en entrée
+         * @param msg : le message d'entrée
+         */
+		public boolean handleMessage(Message msg) {
+			//si c'est le tour de l'IA, on cherche une cas à jouer
             if (msg.what == MSG_COMPUTER_TURN) {
-                // Pick a non-used cell at random. That's about all the AI you need for this game.
+                //récupération de l'état de la grille dans le contexte
             	State[] data = TttContext.getContext().getData();
                 int used = 0;
+                //tant que le random n'a pas généré l'index de chaque case
                 while (used != 0x1F) {
-                    int index = mRnd.nextInt(9);
+                	//génération d'un chiffre entre 0 et 8
+                    int index = rand.nextInt(9);
+                    //si cet index n'a pas déjà été généré
                     if (((used >> index) & 1) == 0) {
+                    	//on change le bit correspondant à cet index
                         used |= 1 << index;
+                        //et si la case correspondant n'est pas jouée
                         if (data[index] == State.EMPTY) {
                         	State currentPlayer = TttContext.getContext().getCurrentPlayer();
+                        	//on fait jouer cette case par l'IA
                         	setCell(index, currentPlayer);
                             break;
                         }
                     }
                 }
-
+                //on finit le tour
                 finishTurn();
                 return true;
             }
             return false;
         }
     }
-
+	
 }

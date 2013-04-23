@@ -46,5 +46,14 @@
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
         />
+    
+    <Button
+        android:id="@+id/b_quit"
+        android:text="@string/quit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        />
 
 </LinearLayout>

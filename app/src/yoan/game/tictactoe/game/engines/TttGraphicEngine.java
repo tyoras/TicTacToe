@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Looper;
 import android.os.Message;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class TttGraphicEngine extends GraphicEngine<TttEngineEvent> {
 	private GameView gameView;
     private TextView infoView;
     private Button buttonNext;
+    private Button buttonQuit;
     
     /** Handler pour accéder à l'UI Thread */
     private Handler uiHandler = new Handler(Looper.getMainLooper(), new UiHandler()); 
@@ -51,7 +53,7 @@ public class TttGraphicEngine extends GraphicEngine<TttEngineEvent> {
 			GameErrors.throwFatalError(getType(), "Evenement non implémenté");
 		}
 		Message msg = new Message();
-		msg.what = code.getValue();
+		msg.what = code.getnumCode();
 		msg.obj = event.getData();
 		uiHandler.sendMessage(msg);
 	}
@@ -112,6 +114,7 @@ public class TttGraphicEngine extends GraphicEngine<TttEngineEvent> {
 		buttonNext.setEnabled(true);
 		buttonNext.setText("Back");
 		
+		buttonQuit.setVisibility(View.VISIBLE);
 		infoView.setText(idString);
 	}
 	
@@ -182,7 +185,7 @@ public class TttGraphicEngine extends GraphicEngine<TttEngineEvent> {
     			case STOP_BLINK:
     				stopBlink();
     				break;
-    			case WIN_STATE:
+    			case WIN:
     				winState((Integer) data[0]);
     				break;
     			default:
@@ -191,5 +194,19 @@ public class TttGraphicEngine extends GraphicEngine<TttEngineEvent> {
     		return true;
         }
     }
+
+	/**
+	 * @return the buttonNext
+	 */
+	public Button getButtonNext(){
+		return buttonNext;
+	}
+
+	/**
+	 * @param buttonQuit the buttonQuit to set
+	 */
+	public void setButtonQuit(Button buttonQuit){
+		this.buttonQuit= buttonQuit;
+	}
 	
 }

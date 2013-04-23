@@ -38,6 +38,7 @@ public class TttGame extends Game<TttEngineEvent> {
 		//listage des modules utilisés
 		modules.put(ModuleType.GAME, new TttGameEngine(this));
 		modules.put(ModuleType.GRAPHIC, new TttGraphicEngine(this));
+		//TODO [Ttt] ajout d'un sound engine
 //		modules.put(ModuleType.SOUND, new TttSoundEngine(this));
 		
 		Map<ModuleType, String[]> args= new HashMap<ModuleType, String[]>();

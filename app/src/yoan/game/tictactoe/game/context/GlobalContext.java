@@ -26,7 +26,7 @@ public class GlobalContext extends Application {
 	}
 
 	/**
-	 * @return the identificationSession
+	 * @return the game context
 	 */
 	public TttContext getTttContext() {
 		return gameContext;

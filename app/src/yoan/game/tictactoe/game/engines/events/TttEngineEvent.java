@@ -6,11 +6,13 @@ package yoan.game.tictactoe.game.engines.events;
 import yoan.game.engines.events.EngineEvent;
 
 /**
- * 
+ * Evenement de communication entre les moteurs du jeu
  * @author yoan
  */
 public class TttEngineEvent implements EngineEvent {
+	/** identifiant de l'événement */
 	private final Enum<?> code;
+	/** données à transmettre par l'évenement */
 	private Object[] data;
 	
 	protected TttEngineEvent(){
@@ -18,9 +20,15 @@ public class TttEngineEvent implements EngineEvent {
 	}
 	
 	public TttEngineEvent(Enum<?> code, Object... data) {
-		super();
 		this.code = code;
 		this.data = data;
+	}
+	
+	/**
+	 * @return the code
+	 */
+	public Enum<?> getCode(){
+		return code;
 	}
 
 	/**
@@ -36,12 +44,4 @@ public class TttEngineEvent implements EngineEvent {
 	public void setData(Object[] data){
 		this.data= data;
 	}
-
-	/**
-	 * @return the code
-	 */
-	public Enum<?> getCode(){
-		return code;
-	}
-
 }

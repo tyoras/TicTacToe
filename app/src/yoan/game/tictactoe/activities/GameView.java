@@ -61,8 +61,9 @@ public class GameView extends View {
     private final Rect mBlinkRect = new Rect();
 
 
-
+    /** Interface du listener de click sur une case */
     public interface ICellListener {
+    	/** Traitement à effectuer en cas de click sur une case */
         abstract void onCellSelected();
     }
 
@@ -296,14 +297,14 @@ public class GameView extends View {
         
         int[] d = new int[data.length];
         for (int i = 0; i < d.length; i++) {
-            d[i] = data[i].getValue();
+            d[i] = data[i].getCode();
         }
         b.putIntArray("gv_data", d);
 
         b.putInt("gv_sel_cell", TttContext.getContext().getSelectedCell());
-        b.putInt("gv_sel_val",  TttContext.getContext().getSelectedValue().getValue());
-        b.putInt("gv_curr_play", TttContext.getContext().getCurrentPlayer().getValue());
-        b.putInt("gv_winner", TttContext.getContext().getWinner().getValue());
+        b.putInt("gv_sel_val",  TttContext.getContext().getSelectedValue().getCode());
+        b.putInt("gv_curr_play", TttContext.getContext().getCurrentPlayer().getCode());
+        b.putInt("gv_winner", TttContext.getContext().getWinner().getCode());
 
         b.putInt("gv_win_col", mWinCol);
         b.putInt("gv_win_row", mWinRow);
@@ -340,11 +341,11 @@ public class GameView extends View {
 
         int selectedCell = b.getInt("gv_sel_cell", -1);
         TttContext.getContext().setSelectedCell(selectedCell);
-        State selectedValue = State.fromInt(b.getInt("gv_sel_val", State.EMPTY.getValue()));
+        State selectedValue = State.fromInt(b.getInt("gv_sel_val", State.EMPTY.getCode()));
         TttContext.getContext().setSelectedValue(selectedValue);
-        State currentPlayer = State.fromInt(b.getInt("gv_curr_play", State.EMPTY.getValue()));
+        State currentPlayer = State.fromInt(b.getInt("gv_curr_play", State.EMPTY.getCode()));
         TttContext.getContext().setCurrentPlayer(currentPlayer);
-        State winner = State.fromInt(b.getInt("gv_winner", State.EMPTY.getValue()));
+        State winner = State.fromInt(b.getInt("gv_winner", State.EMPTY.getCode()));
         TttContext.getContext().setWinner(winner);
 
         mWinCol = b.getInt("gv_win_col", -1);
